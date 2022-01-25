@@ -21,7 +21,18 @@ struct ContentView: View {
     var body: some View {
         List {
             ForEach(store.tasks) { task in
-                TaskCell(task: task)
+                
+                if showingCompletedTasks {
+                    //show all takss, completed or incomplete
+                    TaskCell(task: task)
+                } else {
+                    
+                    //only show completed tasks
+                    if task.completed == false {
+                        TaskCell(task: task)
+                    }
+                    
+                }
             }
             //view modifier invokes the function on the view model, "store"
             .onDelete(perform: store.deleteItems)
