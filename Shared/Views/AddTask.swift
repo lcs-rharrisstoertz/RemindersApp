@@ -40,6 +40,13 @@ struct AddTask: View {
                         saveTask()
                     }
                 }
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        //dismiss the sheet by adjusting the "showing" property, a derived value, which is bound to the "showingAddTask" property from ContentView, the source of truth
+                        showing = false
+                    }
+                }
             }
         }
     }
