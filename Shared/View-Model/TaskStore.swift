@@ -24,6 +24,14 @@ class TaskStore: ObservableObject {
         tasks.remove(atOffsets: offsets)
     }
     
+    //Invoked to move items around in our list
+    func moveItems(from source: IndexSet, to destination: Int){
+        //"source" again contains a set of items being moved
+        //"destination" is the location the items are being moved to in the list
+        //these arguments are automatically populated for us by the .onMove view modifier provided by the SwiftUI framework
+        tasks.move(fromOffsets: source, toOffset: destination)
+    }
+    
 }
 
 let testStore = TaskStore(tasks: testData)
