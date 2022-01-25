@@ -18,18 +18,26 @@ struct ContentView: View {
     //whether to show completed tasks or not
     @State var showingCompletedTasks = true
     
+    //whether to recompute the view to show changes the list
+    //we never actually show this value, but toggling it from "true" to "false" or vice-versa makes SwiftUI update the user interface, since a property marked with @State has changed
+    @State var listShouldUpdate = false
+    
     var body: some View {
+        
+        //has the list been asked to update?
+        let _ = print("listShouldUpdate has been toggled. Current value is: \(listShouldUpdate)")
+        
         List {
             ForEach(store.tasks) { task in
                 
                 if showingCompletedTasks {
                     //show all takss, completed or incomplete
-                    TaskCell(task: task)
+                    TaskCell(task: task, trigggerListUpdate: .constant(true))
                 } else {
                     
                     //only show completed tasks
                     if task.completed == false {
-                        TaskCell(task: task)
+                        TaskCell(task: task, trigggerListUpdate: $listShouldUpdate)
                     }
                     
                 }

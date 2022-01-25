@@ -11,6 +11,9 @@ struct TaskCell: View {
     
     @ObservedObject var task: Task
     
+    //a derived value connected to a boolean on ContentView
+    @Binding var trigggerListUpdate: Bool
+    
     var taskColor: Color {
         switch task.priority {
         case .high:
@@ -27,7 +30,15 @@ struct TaskCell: View {
             Image(systemName: task.completed ? "checkmark.circle.fill" : "circle")
                 .onTapGesture {
                     
+                    //toggle task completion status... this means:
+                    //complete the task (if it was previously incomplete)
+                    //or
+                    //mark task as incomplete (if it was previously completed)
                     task.completed.toggle()
+                    
+                    //change state of the source of truth on ContentView
+                    //this will cause SwiftUI to re-draw the view and it will reflect fact that this task was completed
+                    trigggerListUpdate.toggle()
                     
                 }
             
@@ -39,6 +50,6 @@ struct TaskCell: View {
 
 struct TaskCell_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCell(task: testData[0])
+        TaskCell(task: testData[0], trigggerListUpdate: .constant(true))
     }
 }
