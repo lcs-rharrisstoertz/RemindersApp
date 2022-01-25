@@ -15,6 +15,9 @@ struct ContentView: View {
     //controls whether the add task is showing
     @State private var showingAddTask = false
     
+    //whether to show completed tasks or not
+    @State var showingCompletedTasks = true
+    
     var body: some View {
         List {
             ForEach(store.tasks) { task in
@@ -34,6 +37,15 @@ struct ContentView: View {
             
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                //allow user to toggle visibility of tasks based on their completion status
+                Button(showingCompletedTasks ? "Hide completed tasks" : "Show completed tasks") {
+                    print("Value of showingCompletedTasks was \(showingCompletedTasks)")
+                    showingCompletedTasks.toggle()
+                    print("Value of showingCompletedTasks is now \(showingCompletedTasks)")
+                }
             }
         }
         .sheet(isPresented: $showingAddTask, content: {
