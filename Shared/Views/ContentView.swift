@@ -58,13 +58,40 @@ struct ContentView: View {
                 ForEach(store.tasks) { task in
                     
                     if showingCompletedTasks {
-                        //show all takss, completed or incomplete
-                        TaskCell(task: task, trigggerListUpdate: .constant(true))
+                        
+                        if selectedPriorityForVisibleTasks == .all {
+                            //show all tasks, all priorities
+                            TaskCell(task: task, trigggerListUpdate: .constant(true))
+                        } else {
+                            
+                            //only show tasks of the selected priority
+                            //although "priority" and "selected priority" are different data types (different enumerations), this works because we are comparing their raw values, which are both of type String
+                            if task.priority.rawValue == selectedPriorityForVisibleTasks.rawValue {
+                                
+                                TaskCell(task: task, trigggerListUpdate: .constant(true))
+                                
+                            }
+                            
+                        }
                     } else {
                         
                         //only show completed tasks
                         if task.completed == false {
-                            TaskCell(task: task, trigggerListUpdate: $listShouldUpdate)
+                            
+                            if selectedPriorityForVisibleTasks == .all {
+                                
+                                //show all completed tasks, no matter the priority level
+                                TaskCell(task: task, trigggerListUpdate: $listShouldUpdate)
+                            } else {
+                                
+                                //show incomplete tasks, only for selected priority level
+                                if task.priority.rawValue == selectedPriorityForVisibleTasks.rawValue {
+                                    
+                                    TaskCell(task: task, trigggerListUpdate: $listShouldUpdate)
+                                    
+                                }
+                            }
+                            
                         }
                         
                     }
