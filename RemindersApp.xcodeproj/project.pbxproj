@@ -23,6 +23,7 @@
 		254F46B52799D008006DE402 /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F46B42799D008006DE402 /* AddTask.swift */; };
 		254F46B827A046F4006DE402 /* VisibleTaskPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F46B727A046F4006DE402 /* VisibleTaskPriority.swift */; };
 		254F46B927A046F5006DE402 /* VisibleTaskPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F46B727A046F4006DE402 /* VisibleTaskPriority.swift */; };
+		254F46BC27A43648006DE402 /* SharedFunctionsAndConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F46BB27A43648006DE402 /* SharedFunctionsAndConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		254F46B22799CCF7006DE402 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		254F46B42799D008006DE402 /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		254F46B727A046F4006DE402 /* VisibleTaskPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleTaskPriority.swift; sourceTree = "<group>"; };
+		254F46BB27A43648006DE402 /* SharedFunctionsAndConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctionsAndConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		254F46882799C3A6006DE402 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				254F46BA27A435F1006DE402 /* Helpers */,
 				254F46A82799C409006DE402 /* Model */,
 				254F46B627A03827006DE402 /* View-Model */,
 				254F46A72799C402006DE402 /* Views */,
@@ -122,6 +125,14 @@
 				254F46AD2799C523006DE402 /* TaskStore.swift */,
 			);
 			path = "View-Model";
+			sourceTree = "<group>";
+		};
+		254F46BA27A435F1006DE402 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				254F46BB27A43648006DE402 /* SharedFunctionsAndConstants.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				254F46BC27A43648006DE402 /* SharedFunctionsAndConstants.swift in Sources */,
 				254F46AE2799C523006DE402 /* TaskStore.swift in Sources */,
 				254F469B2799C3AD006DE402 /* ContentView.swift in Sources */,
 				254F46AA2799C483006DE402 /* Task.swift in Sources */,
