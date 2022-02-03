@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class TaskStore: ObservableObject {
     
@@ -14,7 +15,33 @@ class TaskStore: ObservableObject {
     
     //MARK: Initializers
     init (tasks: [Task] = []) {
-        self.tasks = tasks
+        
+        //get a URL that points to the saved JSON data containing our list of tasks
+        let filename = getDocumentDirectory().appendingPathComponent(savedTasksLabel)
+        print(filename)
+        
+        //attempt to load from the JSON in the stored/persisted file
+        do {
+            
+            //load the raw data
+            let data = try Data(contentsOf: filename)
+            
+            //what was loaded from the file?
+            print("Got data from file, contents are:")
+            print(String(data: data, encoding: .utf8)!)
+            
+            //decode the data into Swift native data structures
+            self.tasks = try JSONDecoder().decode([Task].self, from: data)
+            
+        } catch {
+            
+            //what went wrong?
+            print(error.localizedDescription)
+            print("Could not load data from file, initializing with tasksprovided to initializer")
+            
+            //set up list of tasks to whatever was passed to this initializer
+            self.tasks = tasks
+        }
     }
     
     //MARK: Functions
@@ -30,6 +57,39 @@ class TaskStore: ObservableObject {
         //"destination" is the location the items are being moved to in the list
         //these arguments are automatically populated for us by the .onMove view modifier provided by the SwiftUI framework
         tasks.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    //persist the list of tasks
+    func persistTasks() {
+        
+        //get a url that points to the saved JSON data containing our list of tasks
+        let filename = getDocumentDirectory().appendingPathComponent(savedTasksLabel)
+        
+        //try to encode the data in our people array to JSON
+        do {
+            //create an encoder
+            let encoder = JSONEncoder()
+            
+            //ensure the JSON written to the file is human-readable
+            encoder.outputFormatting = .prettyPrinted
+            
+            //encode the list of tasks we've collected
+            let data = try encoder.encode(self.tasks)
+            
+            //actually write the JSON file to the documents directory
+            try data.write(to: filename, options: [.atomicWrite, .completeFileProtection])
+            
+            //see the data that was written
+            print("Saved data to documents directory successfully")
+            print("===")
+            print(String(data: data, encoding: .utf8)!)
+            
+        } catch {
+            
+            print(error.localizedDescription)
+            print("Unable to write lists of tasks to documents directory in app bundle on device.")
+            
+        }
     }
     
 }
